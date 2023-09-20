@@ -18,6 +18,7 @@
     --dsc-color-font-primary: #1f6feb;
     --dsc-color-font-secondary: #0caf1d;
     --dsc-color-font-tertiary: #fff;
+    --dsc-color-font-quaternary: #636363;
 }
 
 * {
@@ -47,7 +48,7 @@ main {
 
 .dsc-container {
     width: 100%;
-    max-width: 900px;
+    max-width: 950px;
     margin: 0 auto;
     padding: 0 auto;
 }
@@ -135,4 +136,15 @@ nav a {
     background-color: var(--dsc-color-btn-inverse);
     color: var(--dsc-color-font-primary);
     border: 1px solid var(--dsc-color-font-primary);
+}
+
+.dsc-btn-next-page{
+    border: 1px solid var(--dsc-color-btn-primary);
+    padding: 10px;
+    border-radius: 4px;
+    color: var(--dsc-color-font-primary);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
 }
