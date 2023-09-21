@@ -1,0 +1,90 @@
+@import url("styles.css");
+
+.dsc-logged-user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.dsc-logged-user p {
+    font-size: 12px;
+}
+
+.dsc-confirmation-message {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dsc-color-font-quaternary);
+    text-align: center;
+}
+
+.dsc-confirmation-item-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dsc-confirmation-item-container img {
+    width: 78px;
+    height: 78px;
+}
+
+.dsc-confirmation-total-container {
+    padding: 10px;
+}
+
+.dsc-confirmation-total-container h3 {
+    text-align: left;
+    font-size: 16px;
+    color: var(--dsc-color-font-secondary);
+}
+
+.dsc-confirmation-item-left {
+    display: flex;
+}
+
+.dsc-confirmation-item-description {
+    padding: 0 0 0 10px;
+    color: #636363;
+}
+
+.dsc-confirmation-item-description h3 {
+    font-size: 16px;
+}
+
+.dsc-confirmation-item-right {
+    padding-bottom: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dsc-color-font-secondary);
+}
+
+.dsc-confirmation-item-quantity-container {
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.dsc-confirmation-item-quantity-container p {
+    margin: 0 5px;
+}
+
+.dsc-confirmation-item-quantity-btn {
+    color: var(--dsc-color-font-primary);
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .dsc-confirmation-item-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .dsc-confirmation-total-container h3 {
+        text-align: right;
+    }
+
+    .dsc-confirmation-message {
+        font-size: 24px;
+        text-align: left;
+    }
+}
