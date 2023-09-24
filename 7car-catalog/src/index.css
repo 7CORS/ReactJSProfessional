@@ -3,11 +3,13 @@
 :root {
   --car-color-bg-primary: #fff;
   --car-color-bg-secondary: #f78b00;
+  --car-color-bg-tertiary: #00285f;
 
   --car-color-font-primary: #000;
   --car-color-font-secondary: #585858;
   --car-color-font-tertiary: #00285f;
   --car-color-font-quaternary: #fff;
+  --car-color-font-placeholder: #a7a7a7;
 }
 
 * {

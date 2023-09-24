@@ -1,0 +1,21 @@
+#car-catalog-section {
+    padding: 40px 0;
+}
+
+.car-search-bar-container {
+    margin-bottom: 40px;
+}
+
+.car-catalog-cards-container {
+    border: 1px solid blue;
+}
+
+.car-catalog-main {
+    padding: 0 10px;
+}
+
+@media (min-width: 576px) {
+    .car-catalog-main {
+        padding: 0 20px;
+    }
+}

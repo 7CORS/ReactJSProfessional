@@ -1,0 +1,34 @@
+.car-search-bar {
+    display: flex;
+}
+
+.car-search-bar input {
+    padding: 0 15px;
+    border: 1px solid var(--car-color-font-placeholder);
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+}
+
+.car-search-bar input::placeholder {
+    color: var(--car-color-font-placeholder);
+}
+
+.car-search-bar input:focus {
+    outline: none;
+}
+
+.car-form-control {
+    height: 40px;
+    width: 100%;
+}
+
+.car-search-bar-submit {
+    background-color: var(--car-color-bg-tertiary);
+    color: var(--car-color-font-quaternary);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+}
