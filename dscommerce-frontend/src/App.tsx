@@ -1,7 +1,9 @@
-import ProductDetails from './routes/ProductDetails';
+import ProductCatalog from './routes/ProductCatalog';
+//import ProductDetails from './routes/ProductDetails';
 
 export default function App() {
   return (
-    <ProductDetails />
+    //<ProductDetails />
+    <ProductCatalog />
   );
 }
