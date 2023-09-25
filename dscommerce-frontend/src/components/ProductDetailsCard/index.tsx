@@ -21,8 +21,8 @@ export default function ProductDetailsCard() {
                 </p>
 
                 <div className="dsc-product-category-container">
-                    <ProductCategory />
-                    <ProductCategory />
+                    <ProductCategory name="Eletrônicos" />
+                    <ProductCategory name="Computadores" />
                 </div>
 
             </div>
