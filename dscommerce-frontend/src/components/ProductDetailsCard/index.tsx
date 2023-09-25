@@ -20,8 +20,13 @@ export default function ProductDetailsCard({ product }: Props) {
                 <p>{product.description}</p>
 
                 <div className="dsc-product-category-container">
-                    <ProductCategory name="Eletrônicos" />
-                    <ProductCategory name="Computadores" />
+
+                    {
+                        product.categories.map(category => (
+                            <ProductCategory key={category.id} name={category.name} />
+                        ))
+                    }
+
                 </div>
 
             </div>
