@@ -102,9 +102,10 @@ Se uma rota leva a um conteúdo, e dentro deste conteúdo há outro(s) subconte�
 </div>
 
 
-## Fonte oficial
+## Referências
 
 - [React Router DOM](https://reactrouter.com/en/v6.3.0/getting-started/tutorial)
 - [Components and Props](https://legacy.reactjs.org/docs/components-and-props.html)
 - [React Props](https://www.w3schools.com/react/react_props.asp)
 - [React Router DOM v6.4.1](https://www.npmjs.com/package/react-router-dom/v/6.4.1)
+- [tutorial-react-router-dom-6-4](https://github.com/devsuperior/tutorial-react-router-dom-6-4)
