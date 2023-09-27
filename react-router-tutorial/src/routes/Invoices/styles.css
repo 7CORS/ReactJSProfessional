@@ -7,7 +7,17 @@
     padding: 1rem;
 }
 
-.link {
+.nav-link {
+    color: blue;
+    font-weight: normal;
+}
+
+.active-link {
+    color: red;
+    font-weight: bold;
+}
+
+.dblock {
     display: block;
     margin: 1rem 0;
 }

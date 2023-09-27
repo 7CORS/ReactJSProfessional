@@ -1,7 +1,7 @@
 import './styles.css';
 
 import { getInvoices } from '../../data/data';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 export default function Invoices() {
     const invoices = getInvoices();
@@ -10,13 +10,13 @@ export default function Invoices() {
         <div className="container">
             <nav className="nav">
                 {invoices.map((invoice) => (
-                    <Link
-                        className="link"
+                    <NavLink
                         to={`/invoices/${invoice.number}`}
                         key={invoice.number}
+                        className={({ isActive }) => isActive ? "dblock nav-link active-link" : "dblock nav-link"}
                     >
                         {invoice.name}
-                    </Link>
+                    </NavLink>
                 ))}
             </nav>
             <Outlet />
