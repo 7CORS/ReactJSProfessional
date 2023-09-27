@@ -1,0 +1,11 @@
+.invoice-main {
+    padding: 1rem;
+}
+
+.invoice-header {
+    font-weight: bold;
+}
+
+.invoice-details {
+    margin-top: 1rem;
+}
