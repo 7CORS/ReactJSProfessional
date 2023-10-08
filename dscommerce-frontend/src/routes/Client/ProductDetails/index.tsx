@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 
 import ButtonInverse from "../../../components/ButtonInverse";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 
+import * as productService from '../../../services/product-service';
 import { ProductDTO } from "../../../models/product";
 import ProductDetailsCard from "../../../components/ProductDetailsCard";
 
@@ -14,7 +14,7 @@ export default function ProductDetails() {
     const [product, setProduct] = useState<ProductDTO>();
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/products/${params.productId}`)
+        productService.findById(Number(params.productId))
             .then(response => {
                 console.log(response.data);
                 setProduct(response.data);

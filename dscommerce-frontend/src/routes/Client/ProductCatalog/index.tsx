@@ -1,11 +1,11 @@
 import './styles.css';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import ButtonNextPage from '../../../components/ButtonNextPage';
 import SearchBar from '../../../components/SearchBar';
 
+import * as productService from '../../../services/product-service';
 import ProductCatalogCard from '../../../components/ProductCatalogCard';
 import { ProductDTO } from '../../../models/product';
 
@@ -14,8 +14,7 @@ export default function ProductCatalog() {
     const [products, setProducts] = useState<ProductDTO[]>([]);
 
     useEffect(() => {
-
-        axios.get("http://localhost:8080/products?size=12")
+        productService.findAll()
             .then(response => {
                 setProducts(response.data.content);
             });
