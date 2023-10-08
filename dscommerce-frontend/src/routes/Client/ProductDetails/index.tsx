@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 import ButtonInverse from "../../../components/ButtonInverse";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 
 import { ProductDTO } from "../../../models/product";
-import * as productService from '../../../services/product-service-mock';
+//import * as productService from '../../../services/product-service-mock';
 import ProductDetailsCard from "../../../components/ProductDetailsCard";
 
 export default function ProductDetails() {
 
-    const params = useParams();
-
+    //const params = useParams();
     const [product, setProduct] = useState<ProductDTO>();
 
     useEffect(() => {
-
-        
-
-        const prod = productService.findById(Number(params.productId));
-        setProduct(prod);
+        axios.get("http://localhost:8080/products/1")
+            .then(response => {
+                console.log(response.data);
+                setProduct(response.data);
+            });
     }, []);
 
     return (
