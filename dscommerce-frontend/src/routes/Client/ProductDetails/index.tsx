@@ -1,15 +1,26 @@
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+
 import ButtonInverse from "../../../components/ButtonInverse";
 import ButtonPrimary from "../../../components/ButtonPrimary";
 
-import ProductDetailsCard from "../../../components/ProductDetailsCard";
+import { ProductDTO } from "../../../models/product";
 import * as productService from '../../../services/product-service-mock';
-import { Link } from "react-router-dom";
+import ProductDetailsCard from "../../../components/ProductDetailsCard";
 
 export default function ProductDetails() {
 
     const params = useParams();
-    const product = productService.findById(Number(params.productId));
+
+    const [product, setProduct] = useState<ProductDTO>();
+
+    useEffect(() => {
+
+        
+
+        const prod = productService.findById(Number(params.productId));
+        setProduct(prod);
+    }, []);
 
     return (
         <main>
