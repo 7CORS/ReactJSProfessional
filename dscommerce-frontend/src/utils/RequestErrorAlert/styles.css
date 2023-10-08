@@ -1,0 +1,27 @@
+.request-error-container {
+    border: 1px solid red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.request-error-title {
+    font-weight: bold;
+    color: red;
+}
+
+.request-error-button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f44336;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.request-error-button:hover {
+    background-color: #d32f2f;
+}
