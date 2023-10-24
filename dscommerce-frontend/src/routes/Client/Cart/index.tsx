@@ -19,6 +19,11 @@ export default function Cart() {
         setCart(cartService.getCart());
     }
 
+    function handleDecreaseItem(productId: number) {
+        cartService.decreaseItem(productId);
+        setCart(cartService.getCart());
+    }
+
     return (
         <main>
             <section className="dsc-container dsc-mt20">
@@ -40,7 +45,7 @@ export default function Cart() {
                                                 <div className="dsc-cart-item-description">
                                                     <h3>{item.name}</h3>
                                                     <div className="dsc-cart-item-quantity-container">
-                                                        <div className="dsc-cart-item-quantity-btn">-</div>
+                                                        <div onClick={() => handleDecreaseItem(item.productId)} className="dsc-cart-item-quantity-btn">-</div>
                                                         <p>{item.quantity}</p>
                                                         <div onClick={() => handleIncreaseItem(item.productId)} className="dsc-cart-item-quantity-btn">+</div>
                                                     </div>
