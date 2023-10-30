@@ -14,7 +14,7 @@ export default function ProductCatalog() {
     const [products, setProducts] = useState<ProductDTO[]>([]);
 
     useEffect(() => {
-        productService.findAll()
+        productService.findPageRequest(0, "ma")
             .then(response => {
                 setProducts(response.data.content);
             });
