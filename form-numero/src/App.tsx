@@ -2,14 +2,12 @@ import { useState } from "react"
 import { ChangeEventType } from "./utils/TypesEvents";
 
 type FormData = {
-  salary: number;
+  salary?: number;
 }
 
 export default function App() {
 
-  const [formData, setFormData] = useState<FormData>({
-    salary: 0
-  });
+  const [formData, setFormData] = useState<FormData>({});
 
   function handleInputChange(event: ChangeEventType) {
     const value = event.target.value;
@@ -21,7 +19,7 @@ export default function App() {
     <form>
       <input
         name="salary"
-        value={formData.salary}
+        value={formData.salary || ""}
         type="text"
         placeholder="Digite um número"
         onChange={handleInputChange}
