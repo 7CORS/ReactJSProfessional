@@ -36,12 +36,12 @@ export default function Login() {
         setError('');
 
         authService.loginRequest(formData)
-            .then(response => {
+            .then((/*response*/) => {
                 // Sucesso na autenticação
                 // Atualize aqui o estado global/auth ou redirecione o usuário
                 setLoading(false);
             })
-            .catch(error => {
+            .catch((/*error*/) => {
                 // Falha na autenticação
                 setError('Falha no login. Por favor, verifique suas credenciais.');
                 setLoading(false);
