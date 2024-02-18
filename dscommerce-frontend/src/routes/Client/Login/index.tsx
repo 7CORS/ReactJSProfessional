@@ -36,8 +36,11 @@ export default function Login() {
         setError('');
 
         authService.loginRequest(formData)
-            .then((/*response*/) => {
+            .then((response) => {
+                
                 // Sucesso na autenticação
+                authService.saveAccessToken(response.data.access_token);
+                
                 // Atualize aqui o estado global/auth ou redirecione o usuário
                 setLoading(false);
             })
