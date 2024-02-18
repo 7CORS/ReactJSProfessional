@@ -1,9 +1,8 @@
 /**
- * Representa as credenciais de usuário para autenticação.
- * Utilizado para enviar dados no formato 'application/x-www-form-urlencoded'.
- * Inclui:
- * - username: Nome de usuário
- * - password: Senha
+ * Tipo para as credenciais de autenticação do usuário.
+ * 
+ * @property {string} username - O nome de usuário.
+ * @property {string} password - A senha do usuário.
  */
 export type CredentialsDTO = {
     username: string;

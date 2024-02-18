@@ -1,22 +1,58 @@
 import './styles.css';
 
 import { useState } from 'react';
+
 import { ChangeEventT, FormEventT } from '../../../utils/TypesEvents';
 import { CredentialsDTO } from '../../../models/auth';
-import { loginRequest } from '../../../services/auth-service';
+import * as authService from '../../../services/auth-service';
 
+/**
+ * Componente para o formulário de login.
+ * Permite ao usuário inserir suas credenciais e submetê-las para autenticação.
+ */
 export default function Login() {
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const [formData, setFormData] = useState<CredentialsDTO>({
         username: '',
         password: ''
     });
 
+    /**
+     * Manipula a submissão do formulário de login.
+     * 
+     * Este método previne o comportamento padrão do formulário para submissão, 
+     * inicia o indicador de carregamento, e chama o serviço de autenticação com os dados do formulário.
+     * Em caso de sucesso, o estado global ou o contexto da aplicação deve ser atualizado para refletir o login do usuário.
+     * Em caso de falha, um erro é exibido para o usuário.
+     * 
+     * @param {FormEventT} event - O evento de submissão do formulário.
+     */
     function handleSubmit(event: FormEventT) {
         event.preventDefault();
-        loginRequest(formData);
+        setLoading(true);
+        setError('');
+
+        authService.loginRequest(formData)
+            .then(response => {
+                // Sucesso na autenticação
+                // Atualize aqui o estado global/auth ou redirecione o usuário
+                setLoading(false);
+            })
+            .catch(error => {
+                // Falha na autenticação
+                setError('Falha no login. Por favor, verifique suas credenciais.');
+                setLoading(false);
+            });
     }
 
+    /**
+     * Atualiza o estado do formulário com os valores inseridos.
+     * 
+     * @param {ChangeEventT} event - O evento de alteração no input.
+     */
     function handleInputChange(event: ChangeEventT) {
         const value = event.target.value;
         const name = event.target.name;
@@ -38,6 +74,7 @@ export default function Login() {
                                     type="text"
                                     placeholder="Email"
                                     onChange={handleInputChange}
+                                    disabled={loading}
                                 />
                                 <div className="dsc-form-error"></div>
                             </div>
@@ -49,15 +86,21 @@ export default function Login() {
                                     type="password"
                                     placeholder="Senha"
                                     onChange={handleInputChange}
+                                    disabled={loading}
                                 />
                             </div>
                         </div>
                         <div className="dsc-login-form-buttons dsc-mt20">
                             <button
                                 type="submit"
-                                className="dsc-btn dsc-btn-blue">Entrar
+                                className="dsc-btn dsc-btn-blue"
+                                disabled={loading}>Entrar
                             </button>
                         </div>
+
+                        {loading && <p>Carregando...</p>}
+                        {error && <div className="dsc-form-error">{error}</div>}
+
                     </form>
                 </div>
             </section>
