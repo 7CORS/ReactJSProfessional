@@ -76,7 +76,6 @@ export default function Login() {
                                     onChange={handleInputChange}
                                     disabled={loading}
                                 />
-                                <div className="dsc-form-error"></div>
                             </div>
                             <div>
                                 <input
@@ -90,7 +89,8 @@ export default function Login() {
                                 />
                             </div>
                         </div>
-                        <div className="dsc-login-form-buttons dsc-mt20">
+
+                        <div className="dsc-login-form-buttons">
                             <button
                                 type="submit"
                                 className="dsc-btn dsc-btn-blue"
@@ -100,7 +100,6 @@ export default function Login() {
 
                         {loading && <p>Carregando...</p>}
                         {error && <div className="dsc-form-error">{error}</div>}
-
                     </form>
                 </div>
             </section>

@@ -17,3 +17,14 @@
         padding: 40px 0;
     }
 }
+
+.dsc-form-error {
+    margin-top: 20px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    color: #721c24;
+    width: 100%;
+    padding: 10px !important;
+    text-align: center !important;
+}
