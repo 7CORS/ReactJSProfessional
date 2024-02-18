@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Client from "./routes/Client";
+import Login from "./routes/Client/Login";
 import ProductCatalog from "./routes/Client/ProductCatalog";
 import ProductDetails from "./routes/Client/ProductDetails";
 import Cart from "./routes/Client/Cart";
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="product-catalog" element={<ProductCatalog />} />
             <Route path="product-details/:productId" element={<ProductDetails />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="login" element={<Login />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" />} />
