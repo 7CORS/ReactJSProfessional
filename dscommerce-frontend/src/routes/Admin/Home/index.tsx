@@ -3,10 +3,12 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import { UserDTO } from '../../../models/user';
 import * as userService from '../../../services/user-service';
+//import { useNavigate } from 'react-router-dom';
 
 export default function AdminHome() {
 
     const [user, setUser] = useState<UserDTO>();
+    //const navigate = useNavigate();
 
     useEffect(() => {
         userService.findMe()
@@ -14,11 +16,15 @@ export default function AdminHome() {
                 setUser(response.data);
                 console.log(response.data);
             })
-            .catch(error => {
+        /* catch substituido pelo interceptor em src/utils/requests.ts
+        .catch(error => {
+            if (error.response.status === 401) {
                 console.log('Erro ao buscar usuário logado.', error);
-            })
-
-    }, [])
+                navigate('/login');
+            }
+        })
+        */
+    }, []);
 
     return (
         <main>
