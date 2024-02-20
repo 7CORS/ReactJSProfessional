@@ -2,9 +2,10 @@ import QueryString from "qs";
 import { AxiosRequestConfig } from "axios";
 
 import { CLIENT_ID, CLIENT_SECRET } from "../utils/System";
-import { CredentialsDTO } from "../models/auth";
+import { AccessTokenPayloadDTO, CredentialsDTO } from "../models/auth";
 import { requestBackend } from "../utils/requests";
 import * as accessTokenRepository from '../localstorage/access-token-repository';
+import jwtDecode from "jwt-decode";
 
 /**
  * Realiza uma requisição de login utilizando as credenciais do usuário.
@@ -46,4 +47,17 @@ export function saveAccessToken(token: string) {
 
 export function getAccessToken() {
     return accessTokenRepository.get();
+}
+
+export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
+    try {
+        const token = accessTokenRepository.get();
+
+        return token == null
+            ? undefined
+            : (jwtDecode(token) as AccessTokenPayloadDTO);
+
+    } catch (error) {
+        return undefined;
+    }
 }

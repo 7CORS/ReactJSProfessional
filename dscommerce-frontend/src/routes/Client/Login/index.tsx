@@ -40,6 +40,9 @@ export default function Login() {
                 
                 // Sucesso na autenticação
                 authService.saveAccessToken(response.data.access_token);
+
+                // Capturando o Payload do Token JWT
+                console.log(authService.getAccessTokenPayload()?.username);
                 
                 // Atualize aqui o estado global/auth ou redirecione o usuário
                 setLoading(false);
