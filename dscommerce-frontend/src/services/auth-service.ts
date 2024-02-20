@@ -49,6 +49,10 @@ export function getAccessToken() {
     return accessTokenRepository.get();
 }
 
+/**
+ * Decodifica e retorna o payload do token JWT armazenado, contendo informações do usuário e expiração.
+ * Retorna `undefined` se o token não existir ou não puder ser decodificado.
+ */
 export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
     try {
         const token = accessTokenRepository.get();
@@ -60,4 +64,21 @@ export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
     } catch (error) {
         return undefined;
     }
+}
+
+/**
+ * Verifica se o usuário está autenticado analisando a validade do token JWT armazenado.
+ * Retorna `true` se o token existir e ainda não tiver expirado; caso contrário, retorna `false`.
+ */
+export function isAuthenticated(): boolean {
+    const tokenPayload = getAccessTokenPayload();
+
+    /*
+    if (tokenPayload && tokenPayload.exp * 1000 > Date.now()) {
+        return true
+    }
+    return false;
+    */
+
+    return tokenPayload && tokenPayload.exp * 1000 > Date.now() ? true : false;
 }
