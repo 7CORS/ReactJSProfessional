@@ -1,41 +1,57 @@
 import { Navigate } from 'react-router-dom';
 import * as authService from '../../services/auth-service';
+import { RoleEnum } from '../../models/auth';
 
 type Props = {
     children: JSX.Element;
+    roles?: RoleEnum[];
 }
 
 /**
- * Componente `PrivateRoute`: Um componente de alta ordem usado para encapsular e proteger rotas
- * em aplicações React. O objetivo principal é controlar o acesso a componentes ou páginas específicas,
- * permitindo que apenas usuários autenticados possam visualizá-los, realizando essa verificação
- * diretamente no lado do cliente.
+ * Componente `PrivateRoute`: Um componente de rota privada que encapsula a lógica de controle de acesso,
+ * destinado a proteger rotas em aplicações React. Ele verifica não apenas a autenticação do usuário, mas
+ * também se o usuário possui qualquer uma das roles necessárias para acessar a rota protegida.
  *
  * Props:
- *   - `children`: JSX.Element - Representa o conteúdo ou componentes filhos que o `PrivateRoute`
- *     irá renderizar se o usuário estiver autenticado.
+ *   - `children`: JSX.Element - O conteúdo ou componentes filhos a serem renderizados se o usuário
+ *     estiver autenticado e possuir as roles necessárias.
+ *   - `roles`: RoleEnum[] (opcional) - Um array de roles que o usuário deve possuir para acessar a rota.
+ *     Se nenhum valor for fornecido, presume-se que a rota não requer roles específicas.
  *
  * Comportamento:
- *   - Utiliza o método `authService.isAuthenticated()` para verificar se existe um token de acesso
- *     válido no armazenamento local, e se o mesmo ainda não expirou, sem a necessidade de realizar
- *     verificações adicionais no backend.
- *   - Se o usuário estiver autenticado (token presente e válido), permite o acesso ao componente
- *     ou página envolvida, renderizando os `children`.
- *   - Caso o usuário não esteja autenticado, redireciona imediatamente para a página de login
- *     utilizando `<Navigate to="/login" />` do `react-router-dom`, evitando assim a necessidade
- *     de um round-trip ao servidor para verificar o estado de autenticação.
+ *   - Primeiro, verifica se o usuário está autenticado verificando a presença e a validade do token
+ *     de acesso no armazenamento local, utilizando `authService.isAuthenticated()`.
+ *   - Se autenticado, a função então verifica se o usuário possui pelo menos uma das roles especificadas
+ *     (se houver), usando `authService.hasAnyRoles(roles)`.
+ *   - Se o usuário não estiver autenticado, ele é redirecionado para a página de login (`/login`).
+ *   - Se o usuário estiver autenticado mas não possuir as roles necessárias, é redirecionado para a
+ *     página do catálogo de produtos (`/product-catalog`), ou para qualquer outra página considerada
+ *     apropriada para usuários sem as permissões necessárias.
  *
  * Uso:
- * Deve ser utilizado em sistemas de rotas, como com a biblioteca `react-router-dom`, para envolver
- * componentes ou páginas que exigem autenticação do usuário. Isso garante uma experiência de usuário
- * segura e eficiente, redirecionando usuários não autenticados antes de qualquer tentativa de acesso
- * a recursos protegidos, otimizando a performance ao reduzir a necessidade de verificações de autenticação
- * no lado do servidor.
+ * Este componente é ideal para uso em sistemas de roteamento, como com `react-router-dom`, para proteger
+ * componentes ou páginas que requerem não apenas autenticação, mas também autorização baseada em roles.
+ * Facilita a criação de uma experiência de usuário segura, redirecionando automaticamente usuários sem
+ * as credenciais apropriadas, e reduzindo a necessidade de verificações de autorização no lado do servidor.
+ *
+ * Exemplo:
+ * ```
+ * <PrivateRoute roles={['ROLE_ADMIN']}>
+ *   <AdminDashboard />
+ * </PrivateRoute>
+ * ```
+ * Neste exemplo, o `AdminDashboard` só é acessível por usuários autenticados que também possuem a role 'ROLE_ADMIN'.
  */
-export function PrivateRoute({ children }: Props) {
+export function PrivateRoute({ children, roles = [] }: Props) {
+
     if (!authService.isAuthenticated()) {
         return <Navigate to="/login" />;
     }
+
+    // já está logado, mas, sem permissão para a rota em questão, vá para o catálogo
+    if (!authService.hasAnyRoles(roles)) {
+        return <Navigate to="/product-catalog" />;
+    }
+
     return children;
 }
-
