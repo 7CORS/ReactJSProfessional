@@ -1,11 +1,12 @@
 import './styles.css';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { ChangeEventT, FormEventT } from '../../../utils/TypesEvents';
 import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
 import { useNavigate } from 'react-router-dom';
+import { ContextToken } from '../../../utils/ContextToken';
 
 /**
  * Componente para o formulário de login.
@@ -16,6 +17,8 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    const { setContextTokenPayload } = useContext(ContextToken);
 
     const [formData, setFormData] = useState<CredentialsDTO>({
         username: '',
@@ -39,16 +42,19 @@ export default function Login() {
 
         authService.loginRequest(formData)
             .then((response) => {
-                
+
                 // Sucesso na autenticação
                 authService.saveAccessToken(response.data.access_token);
+
+                // Seta o Contexto atualizando globalmente o contextTokenPayload onde estiver
+                setContextTokenPayload(authService.getAccessTokenPayload());
 
                 // Redirecionamento
                 navigate("/cart");
 
                 // Capturando o Payload do Token JWT
                 // console.log(authService.getAccessTokenPayload()?.username);
-                
+
                 // Atualize aqui o estado global/auth ou redirecione o usuário
                 setLoading(false);
             })
