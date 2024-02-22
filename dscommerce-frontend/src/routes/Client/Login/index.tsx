@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { ChangeEventT, FormEventT } from '../../../utils/TypesEvents';
 import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Componente para o formulário de login.
@@ -14,6 +15,7 @@ export default function Login() {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState<CredentialsDTO>({
         username: '',
@@ -40,6 +42,9 @@ export default function Login() {
                 
                 // Sucesso na autenticação
                 authService.saveAccessToken(response.data.access_token);
+
+                // Redirecionamento
+                navigate("/cart");
 
                 // Capturando o Payload do Token JWT
                 // console.log(authService.getAccessTokenPayload()?.username);
