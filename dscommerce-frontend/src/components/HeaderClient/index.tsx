@@ -5,6 +5,7 @@ import CartIcon from '../CartIcon';
 import admSettings from '../../assets/images/admin.svg';
 import { useContext } from 'react';
 import { ContextToken } from '../../utils/ContextToken';
+import LoggedUser from '../LoggedUser';
 
 export default function HeaderClient() {
 
@@ -33,9 +34,8 @@ export default function HeaderClient() {
                             </div>
                         </Link>
                     </div>
-                    <Link to="/login">
-                        Entrar
-                    </Link>
+
+                    <LoggedUser />
 
                 </div>
             </nav>
