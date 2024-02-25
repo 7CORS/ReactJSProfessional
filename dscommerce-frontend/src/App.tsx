@@ -19,6 +19,7 @@ import { history } from './utils/history';
 import { PrivateRoute } from "./components/PrivateRoute";
 import { AccessTokenPayloadDTO } from "./models/auth";
 import { ContextToken } from "./utils/ContextToken";
+import ConfirmationCart from "./routes/Client/ConfirmationCart";
 
 export default function App() {
 
@@ -47,6 +48,7 @@ export default function App() {
               <Route path="product-details/:productId" element={<ProductDetails />} />
               <Route path="cart" element={<Cart />} />
               <Route path="login" element={<Login />} />
+              <Route path="confirmation/:orderId" element={<ConfirmationCart />} />
             </Route>
 
             <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
