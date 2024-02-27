@@ -17,7 +17,7 @@ export default function HeaderClient() {
                 <Link to="/">
                     <h1>DSCommerce</h1>
                 </Link>
-                <div className="dsc-navbar-rirght">
+                <div className="dsc-navbar-right">
                     <div className="dsc-menu-items-container">
                         {
                             contextTokenPayload &&
