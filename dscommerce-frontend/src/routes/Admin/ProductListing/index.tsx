@@ -7,6 +7,7 @@ import iconDelete from '../../../assets/images/delete.svg';
 
 import * as productService from '../../../services/product-service';
 import { ProductDTO } from '../../../models/product';
+import SearchBar from '../../../components/SearchBar';
 
 type QueryParams = {
     page: number;
@@ -33,6 +34,11 @@ export default function ProductListing() {
 
     }, [queryParams]);
 
+    function handleSearch(searchText: string) {
+        setProducts([]);
+        setQueryParams({ ...queryParams, page: 0, name: searchText });
+    }
+
     return (
         <main>
             <section id="product-listing" className="dsc-container">
@@ -43,29 +49,26 @@ export default function ProductListing() {
                     <div className="dsc-btn dsc-btn-white">Novo</div>
                 </div>
 
-                <form className="dsc-search-bar">
-                    <button type="submit">🔎︎</button>
-                    <input type="text" placeholder="Nome do Produto" />
-                    <button type="reset">🗙</button>
-                </form>
+                <SearchBar onSearch={handleSearch} />
 
                 <table className="dsc-table dsc-mb20 dsc-mt20">
                     <thead>
-                        <th className="dsc-tb576">ID</th>
-                        <th></th>
-                        <th className="dsc-tb768">Preço</th>
-                        <th className="dsc-txt-left">Nome</th>
-                        <th></th>
-                        <th></th>
+                        <tr>
+                            <th className="dsc-tb576">ID</th>
+                            <th></th>
+                            <th className="dsc-tb768">Preço</th>
+                            <th className="dsc-txt-left">Nome</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
 
                         {
                             products.map(product => (
-                                <tr>
+                                <tr key={product.id}>
                                     <td className="dsc-tb576">{product.id}</td>
-                                    <td><img className="dsc-product-listing-image" src={product.imgUrl} alt={product.name} />
-                                    </td>
+                                    <td><img className="dsc-product-listing-image" src={product.imgUrl} alt={product.name} /></td>
                                     <td className="dsc-tb768">{product.price.toFixed(2)}</td>
                                     <td className="dsc-txt-left">{product.name}</td>
                                     <td><img className="dsc-product-listing-btn" src={iconEdit} alt="Editar" /></td>
