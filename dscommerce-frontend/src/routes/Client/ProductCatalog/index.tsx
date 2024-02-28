@@ -8,7 +8,6 @@ import SearchBar from '../../../components/SearchBar';
 import * as productService from '../../../services/product-service';
 import ProductCatalogCard from '../../../components/ProductCatalogCard';
 import { ProductDTO } from '../../../models/product';
-//import { hasAnyRoles, isAuthenticated } from '../../../services/auth-service';
 
 type QueryParams = {
     page: number;
@@ -24,11 +23,6 @@ export default function ProductCatalog() {
     });
 
     useEffect(() => {
-
-        // Testando, debugando...
-        // console.log("AUTENTICADO!", isAuthenticated());
-        // console.log("TESTE RULES", hasAnyRoles(['ROLE_CLIENT','ROLE_ADMIN']));
-
         productService.findPageRequest(queryParams.page, queryParams.name)
             .then(response => {
                 const nextPage = response.data.content;
@@ -61,9 +55,7 @@ export default function ProductCatalog() {
 
                 {
                     !isLastPage &&
-                    <div onClick={handleNextPageClick}>
-                        <ButtonNextPage />
-                    </div>
+                    <ButtonNextPage onNextPage={handleNextPageClick} />
                 }
             </section>
         </main>
