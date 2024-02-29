@@ -24,3 +24,14 @@ export function findPageRequest(page: number, name: string, size = 12, sort = "n
 
     return requestBackend(config);
 }
+
+export function deleteById(id: number) {
+
+    const config: AxiosRequestConfig = {
+        method: "DELETE",
+        url: `/products/${id}`,
+        withCredentials: true
+    }
+
+    return requestBackend(config);
+}
