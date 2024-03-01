@@ -3,15 +3,12 @@ import './styles.css';
 import { useContext, useState } from 'react';
 
 import { ChangeEventT, FormEventT } from '../../../utils/TypesEvents';
-import { CredentialsDTO } from '../../../models/auth';
 import * as authService from '../../../services/auth-service';
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/ContextToken';
 
-/**
- * Componente para o formulário de login.
- * Permite ao usuário inserir suas credenciais e submetê-las para autenticação.
- */
+import { LoginFormData } from '../../../models/LoginFormData';
+
 export default function Login() {
 
     const [loading, setLoading] = useState(false);
@@ -20,27 +17,33 @@ export default function Login() {
 
     const { setContextTokenPayload } = useContext(ContextToken);
 
-    const [formData, setFormData] = useState<CredentialsDTO>({
-        username: '',
-        password: ''
+    const [formData, setFormData] = useState<LoginFormData>({
+        username: {
+            value: "",
+            id: "username",
+            name: "username",
+            type: "text",
+            placeholder: "Email",
+            validation: function (value: string) {
+                return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
+            },
+            message: "Favor informar um email válido",
+        },
+        password: {
+            value: "",
+            id: "password",
+            name: "password",
+            type: "password",
+            placeholder: "Senha",
+        }
     });
 
-    /**
-     * Manipula a submissão do formulário de login.
-     * 
-     * Este método previne o comportamento padrão do formulário para submissão, 
-     * inicia o indicador de carregamento, e chama o serviço de autenticação com os dados do formulário.
-     * Em caso de sucesso, o estado global ou o contexto da aplicação deve ser atualizado para refletir o login do usuário.
-     * Em caso de falha, um erro é exibido para o usuário.
-     * 
-     * @param {FormEventT} event - O evento de submissão do formulário.
-     */
     function handleSubmit(event: FormEventT) {
         event.preventDefault();
         setLoading(true);
         setError('');
 
-        authService.loginRequest(formData)
+        authService.loginRequest({ username: formData.username.value, password: formData.password.value })
             .then((response) => {
 
                 // Sucesso na autenticação
@@ -49,7 +52,7 @@ export default function Login() {
                 // Seta o Contexto atualizando globalmente o contextTokenPayload onde estiver
                 setContextTokenPayload(authService.getAccessTokenPayload());
 
-                // Redirecionamento
+                // Redireciona
                 navigate("/cart");
 
                 // Capturando o Payload do Token JWT
@@ -65,15 +68,15 @@ export default function Login() {
             });
     }
 
-    /**
-     * Atualiza o estado do formulário com os valores inseridos.
-     * 
-     * @param {ChangeEventT} event - O evento de alteração no input.
-     */
     function handleInputChange(event: ChangeEventT) {
-        const value = event.target.value;
-        const name = event.target.name;
-        setFormData({ ...formData, [name]: value });
+        const { value, name } = event.target;
+        if (name in formData) {
+            setFormData(prevFormData => ({
+                ...prevFormData, [name]: { ...prevFormData[name as keyof LoginFormData], value: value },
+            }));
+        } else {
+            console.error(`${name} não é um campo válido.`);
+        }
     }
 
     return (
@@ -86,7 +89,7 @@ export default function Login() {
                             <div>
                                 <input
                                     name="username"
-                                    value={formData.username}
+                                    value={formData.username.value}
                                     className="dsc-form-control"
                                     type="text"
                                     placeholder="Email"
@@ -97,7 +100,7 @@ export default function Login() {
                             <div>
                                 <input
                                     name="password"
-                                    value={formData.password}
+                                    value={formData.password.value}
                                     className="dsc-form-control"
                                     type="password"
                                     placeholder="Senha"
