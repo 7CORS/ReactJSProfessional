@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/ContextToken';
 
 import { LoginFormData } from '../../../models/LoginFormData';
+import FormInput from '../../../components/FormInput';
 
 export default function Login() {
 
@@ -87,23 +88,17 @@ export default function Login() {
                         <h2>Login</h2>
                         <div className="dsc-form-controls-container">
                             <div>
-                                <input
-                                    name="username"
-                                    value={formData.username.value}
+                                <FormInput
+                                    {...formData.username}
                                     className="dsc-form-control"
-                                    type="text"
-                                    placeholder="Email"
                                     onChange={handleInputChange}
                                     disabled={loading}
                                 />
                             </div>
                             <div>
-                                <input
-                                    name="password"
-                                    value={formData.password.value}
+                                <FormInput
+                                    {...formData.password}
                                     className="dsc-form-control"
-                                    type="password"
-                                    placeholder="Senha"
                                     onChange={handleInputChange}
                                     disabled={loading}
                                 />
