@@ -10,6 +10,8 @@ import { ContextToken } from '../../../utils/ContextToken';
 import { LoginFormData } from '../../../models/LoginFormData';
 import FormInput from '../../../components/FormInput';
 
+import * as forms from '../../../utils/Forms/forms';
+
 export default function Login() {
 
     const [loading, setLoading] = useState(false);
@@ -59,25 +61,17 @@ export default function Login() {
                 // Capturando o Payload do Token JWT
                 // console.log(authService.getAccessTokenPayload()?.username);
 
-                // Atualize aqui o estado global/auth ou redirecione o usuário
+                // Atualiza o estado global/auth ou redirecione o usuário
                 setLoading(false);
             })
             .catch((/*error*/) => {
-                // Falha na autenticação
                 setError('Falha no login. Por favor, verifique suas credenciais.');
                 setLoading(false);
             });
     }
 
     function handleInputChange(event: ChangeEventT) {
-        const { value, name } = event.target;
-        if (name in formData) {
-            setFormData(prevFormData => ({
-                ...prevFormData, [name]: { ...prevFormData[name as keyof LoginFormData], value: value },
-            }));
-        } else {
-            console.error(`${name} não é um campo válido.`);
-        }
+        setFormData(forms.update(formData, event.target.name, event.target.value));
     }
 
     return (
