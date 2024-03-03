@@ -91,6 +91,7 @@ export default function Login() {
                                     onChange={handleInputChange}
                                     disabled={loading}
                                 />
+                                <div className="dsc-form-error">{formData.username.message}</div>
                             </div>
                             <div>
                                 <FormInput
