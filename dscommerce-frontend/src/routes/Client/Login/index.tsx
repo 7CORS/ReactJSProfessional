@@ -46,7 +46,7 @@ export default function Login() {
         setLoading(true);
         setError('');
 
-        console.log(forms.toValues(formData));
+        //console.log(forms.toValues(formData));
 
         //authService.loginRequest({ username: formData.username.value, password: formData.password.value })
         authService.loginRequest(forms.toValues(formData))
