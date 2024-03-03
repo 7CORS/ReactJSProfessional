@@ -12,7 +12,6 @@ import * as forms from '../../../utils/Forms/forms';
 export default function ProductForm() {
 
     const params = useParams();
-
     const isEditing = params.productId !== 'create';
 
     const [formData, setFormData] = useState<any>({
@@ -43,8 +42,12 @@ export default function ProductForm() {
         if (isEditing) {
             productService.findById(Number(params.productId))
                 .then(response => {
-                    console.log(response.data);
+                    const newFormData = forms.updateAll(formData, response.data);
+                    setFormData(newFormData);
                 })
+                .catch(error => {
+                    console.error("Erro ao buscar produto:", error);
+                });
         }
     }, []);
 
