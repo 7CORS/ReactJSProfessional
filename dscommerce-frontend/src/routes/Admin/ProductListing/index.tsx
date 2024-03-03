@@ -84,7 +84,6 @@ export default function ProductListing() {
                     })
                 });
         }
-        //console.log("Resposta", answer);
         setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
     }
 

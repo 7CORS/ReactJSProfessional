@@ -14,12 +14,10 @@ export default function AdminHome() {
         userService.findMe()
             .then(response => {
                 setUser(response.data);
-                console.log(response.data);
             })
         /* catch substituido pelo interceptor em src/utils/requests.ts
         .catch(error => {
-            if (error.response.status === 401) {
-                console.log('Erro ao buscar usuário logado.', error);
+            if (error.response.status === 401) {                
                 navigate('/login');
             }
         })

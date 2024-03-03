@@ -46,8 +46,6 @@ export default function Login() {
         setLoading(true);
         setError('');
 
-        //console.log(forms.toValues(formData));
-
         //authService.loginRequest({ username: formData.username.value, password: formData.password.value })
         authService.loginRequest(forms.toValues(formData))
             .then((response) => {
@@ -61,9 +59,6 @@ export default function Login() {
                 // Redireciona
                 navigate("/cart");
 
-                // Capturando o Payload do Token JWT
-                // console.log(authService.getAccessTokenPayload()?.username);
-
                 // Atualiza o estado global/auth ou redirecione o usuário
                 setLoading(false);
             })
@@ -74,7 +69,11 @@ export default function Login() {
     }
 
     function handleInputChange(event: ChangeEventT) {
-        setFormData(forms.update(formData, event.target.name, event.target.value));
+        setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
+    }
+
+    function handleTurnDurty(name: string) {
+        setFormData(forms.dirtyAndValidate(formData, name));
     }
 
     return (
@@ -88,6 +87,7 @@ export default function Login() {
                                 <FormInput
                                     {...formData.username}
                                     className="dsc-form-control"
+                                    onTurnDirty={handleTurnDurty}
                                     onChange={handleInputChange}
                                     disabled={loading}
                                 />
@@ -96,6 +96,7 @@ export default function Login() {
                                 <FormInput
                                     {...formData.password}
                                     className="dsc-form-control"
+                                    onTurnDirty={handleTurnDurty}
                                     onChange={handleInputChange}
                                     disabled={loading}
                                 />
