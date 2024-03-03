@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Select from 'react-select'
 
 import './styles.css';
 
@@ -9,11 +10,14 @@ import { ChangeEventT } from '../../../utils/TypesEvents';
 import * as productService from '../../../services/product-service';
 import * as forms from '../../../utils/Forms/forms';
 import FormTextArea from '../../../components/FormTextArea';
+import { CategoryDTO } from '../../../models/category';
+import * as categoryService from '../../../services/category-service';
 
 export default function ProductForm() {
 
     const params = useParams();
     const isEditing = params.productId !== 'create';
+    const [categories, setCategories] = useState<CategoryDTO[]>([]);
 
     const [formData, setFormData] = useState<any>({
         name: {
@@ -58,6 +62,13 @@ export default function ProductForm() {
             message: "A descrição deve ter pelo menos 10 caracteres"
         }
     });
+
+    useEffect(() => {
+        categoryService.findAllCategories()
+            .then(response => {
+                setCategories(response.data);
+            })
+    }, []);
 
     useEffect(() => {
         if (isEditing) {
@@ -114,6 +125,14 @@ export default function ProductForm() {
                                     className="dsc-form-control"
                                     onTurnDirty={handleTurnDurty}
                                     onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <Select
+                                    options={categories}
+                                    isMulti
+                                    getOptionLabel={(obj) => obj.name}
+                                    getOptionValue={(obj) => String(obj.id)}
                                 />
                             </div>
                             <div>
