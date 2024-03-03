@@ -46,7 +46,10 @@ export default function Login() {
         setLoading(true);
         setError('');
 
-        authService.loginRequest({ username: formData.username.value, password: formData.password.value })
+        console.log(forms.toValues(formData));
+
+        //authService.loginRequest({ username: formData.username.value, password: formData.password.value })
+        authService.loginRequest(forms.toValues(formData))
             .then((response) => {
 
                 // Sucesso na autenticação
