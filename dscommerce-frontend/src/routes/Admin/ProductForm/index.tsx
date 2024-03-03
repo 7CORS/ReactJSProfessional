@@ -8,6 +8,7 @@ import { ChangeEventT } from '../../../utils/TypesEvents';
 
 import * as productService from '../../../services/product-service';
 import * as forms from '../../../utils/Forms/forms';
+import FormTextArea from '../../../components/FormTextArea';
 
 export default function ProductForm() {
 
@@ -44,6 +45,17 @@ export default function ProductForm() {
             name: "imgUrl",
             type: "text",
             placeholder: "Imagem"
+        },
+        description: {
+            value: "",
+            id: "description",
+            name: "description",
+            type: "text",
+            placeholder: "Descrição",
+            validation: function (AValue: any) {
+                return /^.{10,}$/.test(AValue);
+            },
+            message: "A descrição deve ter pelo menos 10 caracteres"
         }
     });
 
@@ -103,6 +115,15 @@ export default function ProductForm() {
                                     onTurnDirty={handleTurnDurty}
                                     onChange={handleInputChange}
                                 />
+                            </div>
+                            <div>
+                                <FormTextArea
+                                    {...formData.description}
+                                    className="dsc-form-control dsc-textarea"
+                                    onTurnDirty={handleTurnDurty}
+                                    onChange={handleInputChange}
+                                />
+                                <div className="dsc-form-error">{formData.description.message}</div>
                             </div>
                         </div>
 
