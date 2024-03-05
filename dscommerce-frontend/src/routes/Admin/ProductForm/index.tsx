@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import './styles.css';
 
@@ -121,10 +121,14 @@ export default function ProductForm() {
             requestBody.id = params.productId;
         }
 
-        productService.updateRequest(requestBody)
+        const request = isEditing
+            ? productService.updateRequest(requestBody)
+            : productService.insertRequest(requestBody);
+        request
             .then(() => {
                 navigate("/admin/products");
             })
+
     }
 
     return (
