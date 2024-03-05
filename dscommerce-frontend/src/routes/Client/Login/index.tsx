@@ -17,6 +17,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
     const { setContextTokenPayload } = useContext(ContextToken);
 
@@ -43,6 +44,15 @@ export default function Login() {
 
     function handleSubmit(event: FormEventT) {
         event.preventDefault();
+        
+        setSubmitResponseFail(false);
+
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(formDataValidated)) {
+            setFormData(formDataValidated);
+            return;
+        }
+
         setLoading(true);
         setError('');
 
@@ -62,9 +72,10 @@ export default function Login() {
                 // Atualiza o estado global/auth ou redirecione o usuário
                 setLoading(false);
             })
-            .catch((/*error*/) => {
+            .catch(() => {
                 setError('Falha no login. Por favor, verifique suas credenciais.');
                 setLoading(false);
+                setSubmitResponseFail(true);
             });
     }
 
@@ -103,6 +114,13 @@ export default function Login() {
                                 />
                             </div>
                         </div>
+
+                        {
+                            submitResponseFail &&
+                            <div className="dsc-form-global-error">
+                                Usuário ou senha inválidos.
+                            </div>
+                        }
 
                         <div className="dsc-login-form-buttons">
                             <button

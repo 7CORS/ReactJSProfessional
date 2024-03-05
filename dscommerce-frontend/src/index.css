@@ -256,6 +256,18 @@ nav a {
   display: none;
 }
 
+.dsc-form-global-error {
+  border: 1px solid var(--dsc-color-font-error);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin-bottom: 15px;
+  color: var(--dsc-color-font-error);
+  border-radius: 5px;
+}
+
 .dsc-form-control[data-dirty="true"][data-invalid="true"]~div {
   display: unset;
 }
