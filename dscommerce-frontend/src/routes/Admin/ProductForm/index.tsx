@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Select from 'react-select'
 
 import './styles.css';
 
-import FormInput from '../../../components/FormInput';
 import { ChangeEventT } from '../../../utils/TypesEvents';
 
 import * as productService from '../../../services/product-service';
 import * as forms from '../../../utils/Forms/forms';
-import FormTextArea from '../../../components/FormTextArea';
-import { CategoryDTO } from '../../../models/category';
 import * as categoryService from '../../../services/category-service';
+
+import FormInput from '../../../components/FormInput';
+import FormSelect from '../../../components/FormSelect';
+import FormTextArea from '../../../components/FormTextArea';
+import { selectStyles } from '../../../utils/Select';
+
+import { CategoryDTO } from '../../../models/category';
 
 export default function ProductForm() {
 
@@ -60,6 +63,16 @@ export default function ProductForm() {
                 return /^.{10,}$/.test(AValue);
             },
             message: "A descrição deve ter pelo menos 10 caracteres"
+        },
+        categories: {
+            value: [],
+            id: "categories",
+            name: "categories",
+            placeholder: "Categorias",
+            validation: function (AValues: CategoryDTO[]) {
+                return AValues.length > 0;
+            },
+            message: "Escolha ao menos uma categoria"
         }
     });
 
@@ -128,12 +141,21 @@ export default function ProductForm() {
                                 />
                             </div>
                             <div>
-                                <Select
+                                <FormSelect
+                                    {...formData.categories}
+                                    className="dsc-form-control dsc-form-select-container"
+                                    styles={selectStyles}
                                     options={categories}
+                                    onChange={(obj) => {
+                                        const newFormData = forms.updateAndValidate(formData, "categories", obj);
+                                        setFormData(newFormData);
+                                    }}
                                     isMulti
+                                    onTurnDirty={handleTurnDurty}
                                     getOptionLabel={(obj) => obj.name}
                                     getOptionValue={(obj) => String(obj.id)}
                                 />
+                                <div className="dsc-form-error">{formData.categories.message}</div>
                             </div>
                             <div>
                                 <FormTextArea
