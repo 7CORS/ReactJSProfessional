@@ -66,8 +66,11 @@ export default function ProductListing() {
     }
 
     function handleDeleteClick(productId: number) {
-        //setDialogInfoData({ ...dialogInfoData, visible: true });
         setDialogConfirmationData({ ...dialogConfirmationData, id: productId, visible: true });
+    }
+
+    function handleUpdateClick(productId: number) {
+        navigate(`/admin/products/${productId}`);
     }
 
     function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
@@ -125,7 +128,14 @@ export default function ProductListing() {
                                     <td><img className="dsc-product-listing-image" src={product.imgUrl} alt={product.name} /></td>
                                     <td className="dsc-tb768">{product.price.toFixed(2)}</td>
                                     <td className="dsc-txt-left">{product.name}</td>
-                                    <td><img className="dsc-product-listing-btn" src={iconEdit} alt="Editar" /></td>
+                                    <td>
+                                        <img
+                                            onClick={() => handleUpdateClick(product.id)}
+                                            className="dsc-product-listing-btn"
+                                            src={iconEdit}
+                                            alt="Editar"
+                                        />
+                                    </td>
                                     <td>
                                         <img
                                             onClick={() => handleDeleteClick(product.id)}

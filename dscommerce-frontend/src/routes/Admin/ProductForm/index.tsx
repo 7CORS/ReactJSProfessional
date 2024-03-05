@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import './styles.css';
 
-import { ChangeEventT } from '../../../utils/TypesEvents';
+import { ChangeEventT, FormEventT } from '../../../utils/TypesEvents';
 
 import * as productService from '../../../services/product-service';
 import * as forms from '../../../utils/Forms/forms';
@@ -104,12 +104,17 @@ export default function ProductForm() {
         setFormData(forms.dirtyAndValidate(formData, name));
     }
 
+    function handleSubmit(event: FormEventT) {
+        event.preventDefault();
+        console.log(forms.toValues(formData));
+    }
+
     return (
         <main>
             <section id="dsc-product-form-section" className="dsc-container">
 
                 <div className="dsc-product-form-container">
-                    <form className="dsc-card dsc-form">
+                    <form className="dsc-card dsc-form" onSubmit={handleSubmit}>
 
                         <h2>Dados do Produto</h2>
 
