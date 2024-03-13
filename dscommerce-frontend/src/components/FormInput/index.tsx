@@ -13,7 +13,9 @@ export default function FormInput(props: FormInputProps) {
     } = props;
 
     function handleBlur() {
-        onTurnDirty(props.name);
+        if (onTurnDirty && props.name) {
+            onTurnDirty(props.name);
+        }
     }
 
     return (

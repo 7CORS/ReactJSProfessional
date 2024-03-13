@@ -11,8 +11,10 @@ export default function FormSelect(props: any) {
     } = props;
 
     function handleBlur() {
-        onTurnDirty(props.name);
-    }
+        if (onTurnDirty && props.name) {
+            onTurnDirty(props.name);
+        }
+    }    
 
     return (
         <div
